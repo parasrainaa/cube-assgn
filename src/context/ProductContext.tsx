@@ -121,19 +121,19 @@ const mockVariants: ProductVariant[] = [
 const mockMedia: ProductMedia[] = [
   {
     id: 1,
-    url: '/src/images/products/bottle-chocolate.svg',
+    url: '/images/products/bottle-chocolate.svg',
     alt: 'Chocolate Drink Bottle',
     type: 'image'
   },
   {
     id: 2,
-    url: '/src/images/products/bottle-vanilla.svg',
+    url: '/images/products/bottle-vanilla.svg',
     alt: 'Vanilla Drink Bottle',
     type: 'image'
   },
   {
     id: 3,
-    url: '/src/images/products/bottle-orange.svg',
+    url: '/images/products/bottle-orange.svg',
     alt: 'Orange Drink Bottle',
     type: 'image'
   }

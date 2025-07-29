@@ -29,7 +29,7 @@ const MediaGallery: React.FC = () => {
       <div className="main-image-wrapper mb-4">
         <div className="aspect-square bg-gray-50 rounded-2xl overflow-hidden relative">
           <img 
-            src={currentMedia?.url || '/src/images/products/bottle-chocolate.svg'}
+            src={currentMedia?.url || '/images/products/bottle-chocolate.svg'}
             alt={currentMedia?.alt || 'Premium Drink Bottle'}
             className="w-full h-full object-cover select-none"
           />

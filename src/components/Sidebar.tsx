@@ -37,10 +37,10 @@ const Sidebar: React.FC = () => {
   const flavors: FlavorType[] = ['chocolate', 'vanilla', 'orange'];
 
   const bottleImages = [
-    '/src/images/products/bottle-chocolate-thumb.svg',
-    '/src/images/products/bottle-vanilla-thumb.svg',
-    '/src/images/products/bottle-orange-thumb.svg',
-    '/src/images/products/bottle-chocolate-thumb.svg'
+    '/images/products/bottle-chocolate-thumb.svg',
+    '/images/products/bottle-vanilla-thumb.svg',
+    '/images/products/bottle-orange-thumb.svg',
+    '/images/products/bottle-chocolate-thumb.svg'
   ];
 
   const getInclusionItems = () => {
