@@ -3,19 +3,14 @@ import { useProduct } from '../context/ProductContext';
 import type { SubscriptionType } from '../types';
 
 const SubscriptionOptions: React.FC = () => {
-  const { state, dispatch } = useProduct();
+  const { state, dispatch, getSinglePrice, getDoublePrice } = useProduct();
 
   const handleSubscriptionChange = (type: SubscriptionType) => {
     dispatch({ type: 'SET_SUBSCRIPTION_TYPE', payload: type });
   };
 
-  const getSinglePrice = () => {
-    return '$4.00';
-  };
-
-  const getDoublePrice = () => {
-    return '$7.20';
-  };
+  const singlePricing = getSinglePrice();
+  const doublePricing = getDoublePrice();
 
   return (
     <div className="purchase-options-section">
@@ -56,7 +51,9 @@ const SubscriptionOptions: React.FC = () => {
             </div>
           </div>
           <div className="text-right">
-            <div className="text-xl font-bold text-gray-900">{getSinglePrice()}</div>
+            <div className="text-sm text-gray-400 line-through">{singlePricing.originalFormatted}</div>
+            <div className="text-xl font-bold text-gray-900">{singlePricing.formatted}</div>
+            <div className="text-xs text-gray-500">per delivery</div>
           </div>
         </label>
         
@@ -95,7 +92,9 @@ const SubscriptionOptions: React.FC = () => {
             </div>
           </div>
           <div className="text-right">
-            <div className="text-xl font-bold text-gray-900">{getDoublePrice()}</div>
+            <div className="text-sm text-gray-400 line-through">{doublePricing.originalFormatted}</div>
+            <div className="text-xl font-bold text-gray-900">{doublePricing.formatted}</div>
+            <div className="text-xs text-gray-500">per delivery</div>
           </div>
         </label>
       </div>

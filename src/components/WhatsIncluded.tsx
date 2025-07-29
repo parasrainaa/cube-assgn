@@ -4,12 +4,28 @@ import { useProduct } from '../context/ProductContext';
 const WhatsIncluded: React.FC = () => {
   const { state } = useProduct();
 
-  const inclusionItems = [
-    'Premium organic ingredients sourced sustainably',
-    'Free shipping on all subscription orders',
-    'Cancel or modify your subscription anytime',
-    'Satisfaction guarantee with 30-day returns'
-  ];
+  const getInclusionItems = () => {
+    const baseItems = [
+      'Premium organic ingredients sourced sustainably',
+      'Free shipping on all subscription orders',
+      'Cancel or modify your subscription anytime',
+      'Satisfaction guarantee with 30-day returns'
+    ];
+
+    const modeSpecificItems = state.subscriptionType === 'single' 
+      ? [
+          'Monthly delivery (1 bottle per month)',
+          'Perfect for light consumption',
+          'Easy to try different flavors'
+        ]
+      : [
+          'Bi-weekly delivery (2 bottles every 2 weeks)',
+          'Best value for regular consumption',
+          'Mix and match different flavors'
+        ];
+
+    return [...baseItems, ...modeSpecificItems];
+  };
 
   const bottleImages = [
     '/src/images/products/bottle-chocolate-thumb.svg',
@@ -37,7 +53,7 @@ const WhatsIncluded: React.FC = () => {
           </div>
           
           <div className="text-sm text-gray-600 space-y-2">
-            {inclusionItems.map((item, index) => (
+            {getInclusionItems().map((item, index) => (
               <div key={index} className="flex items-center">
                 <div className="w-2 h-2 bg-gray-400 rounded-full mr-3 flex-shrink-0"></div>
                 <span>{item}</span>
@@ -61,7 +77,7 @@ const WhatsIncluded: React.FC = () => {
           </div>
           
           <div className="text-sm text-gray-600 space-y-2">
-            {inclusionItems.map((item, index) => (
+            {getInclusionItems().map((item, index) => (
               <div key={index} className="flex items-center">
                 <div className="w-2 h-2 bg-gray-400 rounded-full mr-3 flex-shrink-0"></div>
                 <span>{item}</span>

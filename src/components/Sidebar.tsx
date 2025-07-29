@@ -3,7 +3,7 @@ import { useProduct } from '../context/ProductContext';
 import type { FlavorType } from '../types';
 
 const Sidebar: React.FC = () => {
-  const { state } = useProduct();
+  const { state, getSinglePrice, getDoublePrice } = useProduct();
 
   const getFlavorColor = (flavor: FlavorType): string => {
     switch (flavor) {
@@ -30,8 +30,8 @@ const Sidebar: React.FC = () => {
       : 'Double Drink Subscription';
   };
 
-  const getPrice = () => {
-    return state.subscriptionType === 'single' ? '$4.00' : '$7.20';
+  const getCurrentPricing = () => {
+    return state.subscriptionType === 'single' ? getSinglePrice() : getDoublePrice();
   };
 
   const flavors: FlavorType[] = ['chocolate', 'vanilla', 'orange'];
@@ -43,12 +43,26 @@ const Sidebar: React.FC = () => {
     '/src/images/products/bottle-chocolate-thumb.svg'
   ];
 
-  const inclusionItems = [
-    'Premium organic ingredients sourced sustainably',
-    'Free shipping on all subscription orders',
-    'Cancel or modify your subscription anytime',
-    'Satisfaction guarantee with 30-day returns'
-  ];
+  const getInclusionItems = () => {
+    const baseItems = [
+      'Premium organic ingredients sourced sustainably',
+      'Free shipping on all subscription orders',
+      'Cancel or modify your subscription anytime',
+      'Satisfaction guarantee with 30-day returns'
+    ];
+
+    const modeSpecificItems = state.subscriptionType === 'single' 
+      ? [
+          'Monthly delivery (1 bottle per month)',
+          'Perfect for light consumption'
+        ]
+      : [
+          'Bi-weekly delivery (2 bottles every 2 weeks)',
+          'Best value for regular consumption'
+        ];
+
+    return [...baseItems, ...modeSpecificItems.slice(0, 2)]; // Truncate for sidebar
+  };
 
   return (
     <div className="fixed top-0 right-0 h-full w-80 bg-white border-l border-gray-200 p-6 space-y-6 hidden lg:block shadow-[-4px_0_12px_rgba(0,0,0,0.05)] z-10">
@@ -58,7 +72,10 @@ const Sidebar: React.FC = () => {
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
           <div className="flex items-center justify-between mb-4">
             <span className="text-lg font-semibold text-gray-900">{getProductTitle()}</span>
-            <span className="text-xl font-bold text-gray-900">{getPrice()}</span>
+            <div className="text-right">
+              <div className="text-sm text-gray-400 line-through">{getCurrentPricing().originalFormatted}</div>
+              <div className="text-xl font-bold text-gray-900">{getCurrentPricing().formatted}</div>
+            </div>
           </div>
           
           {state.subscriptionType === 'double' && (
@@ -113,7 +130,7 @@ const Sidebar: React.FC = () => {
             </div>
             
             <div className="text-xs text-gray-600 space-y-1 mt-3">
-              {inclusionItems.map((item, index) => (
+              {getInclusionItems().map((item, index) => (
                 <div key={index} className="flex items-center">
                   <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2 flex-shrink-0 mt-0.5"></div>
                   <span>{item}</span>
